@@ -1,5 +1,6 @@
 class MoviesController < ApplicationController
-
+  attr_reader :all_ratings, :ratings_to_show
+  attr_writer :all_ratings, :ratings_to_show
   def show
     id = params[:id] # retrieve movie ID from URI route
     @movie = Movie.find(id) # look up movie by unique ID
@@ -7,9 +8,16 @@ class MoviesController < ApplicationController
   end
 
   def index
-    # determine what values to pass to Movie.with_ratings
     # @movies = Movie.all
-    @movies = Movie.with_ratings(params[:ratings])
+    # how to figure out which boxes the user checked
+    @ratings_to_show = []
+    params[:ratings].each { |key, value| 
+      if value==1 
+        @ratings_to_show.push(key)
+      end
+    }
+    # how to restrict the database query based on that result
+    @movies = Movie.with_ratings(@ratings_to_show) # my
   end
 
   def new
@@ -19,6 +27,10 @@ class MoviesController < ApplicationController
   def create
     @movie = Movie.create!(movie_params)
     flash[:notice] = "#{@movie.title} was successfully created."
+    # controller sets this variable by consulting the Model
+    @all_ratings = Movie.all_ratings # my
+    # a collection of which ratings should be checked, array
+    @ratings_to_show = [] # my
     redirect_to movies_path
   end
 
