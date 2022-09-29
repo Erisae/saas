@@ -7,7 +7,9 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @movies = Movie.all
+    # determine what values to pass to Movie.with_ratings
+    # @movies = Movie.all
+    @movies = Movie.with_ratings(params[:ratings])
   end
 
   def new
@@ -44,4 +46,6 @@ class MoviesController < ApplicationController
   def movie_params
     params.require(:movie).permit(:title, :rating, :description, :release_date)
   end
+
 end
+
