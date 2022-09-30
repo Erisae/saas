@@ -1,8 +1,9 @@
 class Movie < ActiveRecord::Base
   def self.all_ratings
-    return self.group("Rating")
+    groups = self.group_by{|line| line.Rating}
+    return groups.keys
   end 
-  
+
   def self.with_ratings(ratings_list)
     if ratings_list.length == 0 #nil
       return self.all
