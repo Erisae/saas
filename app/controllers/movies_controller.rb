@@ -9,7 +9,7 @@ class MoviesController < ApplicationController
 
   def initialize
     # controller sets this variable by consulting the Model
-    @all_ratings = Movie.all_ratings # ['G', 'R', 'PG-13', 'PG']
+    @all_ratings = ['G', 'R', 'PG-13', 'PG'] #  Movie.all_ratings 
     # a collection of which ratings should be checked, array
     @ratings_to_show = [] # my
   end
