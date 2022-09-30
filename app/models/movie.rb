@@ -10,7 +10,7 @@ class Movie < ActiveRecord::Base
     if ratings_list.length == 0 #nil
       return self.all
     else 
-      return self.where(:rating: ratings_list)# User.where(name: ["Alice", "Bob"])
+      return self.where(rating: ratings_list)# User.where(name: ["Alice", "Bob"])
     end
   end
 
