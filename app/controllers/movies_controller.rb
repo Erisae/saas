@@ -26,7 +26,7 @@ class MoviesController < ApplicationController
     @movie = Movie.create!(movie_params)
     flash[:notice] = "#{@movie.title} was successfully created."
     # controller sets this variable by consulting the Model
-    @all_ratings = Movie.all_ratings # my
+    @all_ratings = ['G', 'R', 'PG-13', 'PG']# Movie.all_ratings # my
     File.open("/home/codio/workspace/rottenpotatoes-rails-intro/debug.txt","a+") do |f|
       f.puts @all_ratings
       f.puts "======="
