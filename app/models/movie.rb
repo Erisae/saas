@@ -1,6 +1,6 @@
 class Movie < ActiveRecord::Base
   def self.all_ratings
-    groups = self.all.group_by{|line| line.Rating}
+    groups = self.all.group_by{|line| "Rating"}
     return groups.keys
   end 
 
