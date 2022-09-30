@@ -27,6 +27,8 @@ class MoviesController < ApplicationController
     flash[:notice] = "#{@movie.title} was successfully created."
     # controller sets this variable by consulting the Model
     @all_ratings = Movie.all_ratings # my
+    puts "======================"
+    print @all_ratings
     # a collection of which ratings should be checked, array
     @ratings_to_show = [] # my
     redirect_to movies_path
