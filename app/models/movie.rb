@@ -2,7 +2,8 @@ class Movie < ActiveRecord::Base
   def self.all_ratings
     # groups = self.all.group_by{|o| :rating} # o's rating
     # return groups.keys
-    return self.pluck :rating
+    all_ratings = self.pluck :rating
+    return all_ratings.uniq
   end 
 
   def self.with_ratings(ratings_list)
