@@ -1,14 +1,14 @@
 class Movie < ActiveRecord::Base
   def self.all_ratings
-    groups = self.group_by{|line| line.Rating}
+    groups = Movie.group_by{|line| line.Rating}
     return groups.keys
   end 
 
   def self.with_ratings(ratings_list)
     if ratings_list.length == 0 #nil
-      return self.all
+      return Movie.all
     else 
-      return self.where("Rating": ratings_list)# User.where(name: ["Alice", "Bob"])
+      return Movie.where("Rating": ratings_list)# User.where(name: ["Alice", "Bob"])
     end
   end
 
