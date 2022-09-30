@@ -11,11 +11,7 @@ class MoviesController < ApplicationController
     # @movies = Movie.all
     # how to figure out which boxes the user checked
     @ratings_to_show = []
-    params[:ratings].each { |key, value| 
-      if value==1 
-        @ratings_to_show.push(key)
-      end
-    }
+    params[:ratings].each { |key, value| @ratings_to_show.push(key) if value==1}
     # how to restrict the database query based on that result
     @movies = Movie.with_ratings(@ratings_to_show) # my
   end
