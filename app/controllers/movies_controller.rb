@@ -7,6 +7,13 @@ class MoviesController < ApplicationController
     # will render app/views/movies/show.<extension> by default
   end
 
+  def initialize
+    # controller sets this variable by consulting the Model
+    @all_ratings = Movie.all_ratings # ['G', 'R', 'PG-13', 'PG']
+    # a collection of which ratings should be checked, array
+    @ratings_to_show = [] # my
+  end
+
   def index
     # @movies = Movie.all
     # how to figure out which boxes the user checked
@@ -23,16 +30,9 @@ class MoviesController < ApplicationController
   end
 
   def create
+    # not here
     @movie = Movie.create!(movie_params)
     flash[:notice] = "#{@movie.title} was successfully created."
-    # controller sets this variable by consulting the Model
-    @all_ratings = ['G', 'R', 'PG-13', 'PG']# Movie.all_ratings # my
-    File.open("/home/codio/workspace/rottenpotatoes-rails-intro/debug.txt","a+") do |f|
-      f.puts @all_ratings
-      f.puts "======="
-    end
-    # a collection of which ratings should be checked, array
-    @ratings_to_show = [] # my
     redirect_to movies_path
   end
 
