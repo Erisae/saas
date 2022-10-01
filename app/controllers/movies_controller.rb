@@ -7,12 +7,12 @@ class MoviesController < ApplicationController
     # will render app/views/movies/show.<extension> by default
   end
 
-  def initialize
-    # controller sets this variable by consulting the Model
-    @all_ratings = Movie.all_ratings #['G', 'R', 'PG-13', 'PG']
-    # a collection of which ratings should be checked, array
-    @ratings_to_show = [] # my
-  end
+  # def initialize
+  #   # controller sets this variable by consulting the Model
+  #   @all_ratings = Movie.all_ratings #['G', 'R', 'PG-13', 'PG']
+  #   # a collection of which ratings should be checked, array
+  #   @ratings_to_show = [] # my
+  # end
 
   def index
     # @movies = Movie.all
@@ -22,10 +22,6 @@ class MoviesController < ApplicationController
     else
       @ratings_to_show = []
     end
-    # if params[:ratings] != nil
-    #   params[:ratings].each { |key, value| @ratings_to_show.push(key) if value==1}
-    # end
-
       # how to restrict the database query based on that result
     @movies = Movie.with_ratings(@ratings_to_show) # my
   end
