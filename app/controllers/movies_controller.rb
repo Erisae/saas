@@ -11,13 +11,17 @@ class MoviesController < ApplicationController
     # controller sets this variable by consulting the Model
     @all_ratings = Movie.all_ratings #['G', 'R', 'PG-13', 'PG']
     # a collection of which ratings should be checked, array
-    @ratings_to_show = [] # my
+    @ratings_to_show = nil # my
   end
 
   def index
     # @movies = Movie.all
     # how to figure out which boxes the user checked
-    @ratings_to_show = params[:rating].keys
+    if params[:ratings] != nil
+      @ratings_to_show = params[:rating].keys
+    else
+      @ratings_to_show = nil
+    end
     # if params[:ratings] != nil
     #   params[:ratings].each { |key, value| @ratings_to_show.push(key) if value==1}
     # end
