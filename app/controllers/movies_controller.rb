@@ -18,7 +18,7 @@ class MoviesController < ApplicationController
     # @movies = Movie.all
     # how to figure out which boxes the user checked
     if params[:ratings] != nil
-      @ratings_to_show = params[:rating].keys
+      @ratings_to_show = params[:ratings].keys
     else
       @ratings_to_show = []
     end
