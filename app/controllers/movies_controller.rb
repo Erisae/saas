@@ -1,21 +1,25 @@
 class MoviesController < ApplicationController
-  attr_reader :all_ratings, :ratings_to_show
-  attr_writer :all_ratings, :ratings_to_show
+  # attr_reader :all_ratings, :ratings_to_show
+  # attr_writer :all_ratings, :ratings_to_show
+
+  # @all_ratings = Movie.all_ratings #['G', 'R', 'PG-13', 'PG']
+  # # a collection of which ratings should be checked, array
+  # @ratings_to_show = [] # my
+
+  def initialize
+    # controller sets this variable by consulting the Model
+    @all_ratings = Movie.all_ratings #['G', 'R', 'PG-13', 'PG']
+    # a collection of which ratings should be checked, array
+    @ratings_to_show = [] # my
+  end
+
   def show
     id = params[:id] # retrieve movie ID from URI route
     @movie = Movie.find(id) # look up movie by unique ID
     # will render app/views/movies/show.<extension> by default
   end
 
-  # def initialize
-  #   # controller sets this variable by consulting the Model
-  #   @all_ratings = Movie.all_ratings #['G', 'R', 'PG-13', 'PG']
-  #   # a collection of which ratings should be checked, array
-  #   @ratings_to_show = [] # my
-  # end
-
   def index
-    # @movies = Movie.all
     # how to figure out which boxes the user checked
     if params[:ratings] != nil
       @ratings_to_show = params[:ratings].keys
