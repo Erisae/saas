@@ -16,9 +16,9 @@
 <table class="table table-striped col-md-12" id="movies">
   <thead>
     <tr>
-      <th>Movie Title</th>
+      <th><%= link_to "Movie Title", movies_path({:clicking=>{:movie_title=>1, :release_date=>0}, :ratings=>Hash[@ratings_to_show.map {|v| [v,1]}]}), class:"p-3 mb-2 bg-warning text-hilite"%></th>
       <th>Rating</th>
-      <th>Release Date</th>
+      <th><%= link_to "Release date", movies_path({:clicking=>{:movie_title=>0, :release_date=>1}, :ratings=>Hash[@ratings_to_show.map {|v| [v,1]}]}) %></th>
       <th>More Info</th>
     </tr>
   </thead>

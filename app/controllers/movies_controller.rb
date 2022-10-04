@@ -1,16 +1,14 @@
 class MoviesController < ApplicationController
-  # attr_reader :all_ratings, :ratings_to_show
-  # attr_writer :all_ratings, :ratings_to_show
-
-  # @all_ratings = Movie.all_ratings #['G', 'R', 'PG-13', 'PG']
-  # # a collection of which ratings should be checked, array
-  # @ratings_to_show = [] # my
+  attr_reader :all_ratings, :ratings_to_show, :reorder
+  attr_writer :all_ratings, :ratings_to_show, :reorder
 
   def initialize
+    super
     # controller sets this variable by consulting the Model
-    @all_ratings = Movie.all_ratings #['G', 'R', 'PG-13', 'PG']
+    @all_ratings = Movie.all_ratings
     # a collection of which ratings should be checked, array
     @ratings_to_show = [] # my
+    @reorder = ""
   end
 
   def show
@@ -20,14 +18,32 @@ class MoviesController < ApplicationController
   end
 
   def index
+    # order
+
+    if params[:clicking] != nil
+      if params[:clicking][:movie_title] == "1"
+        @reorder = :title
+      elsif params[:clicking][:release_date] == "1"
+        @reorder = :release_date
+      end
+    end
+
+    # aFile = File.new("/home/codio/workspace/input.txt", "w")
+    # if aFile
+    #   aFile.syswrite(@reorder)
+    #   aFile.syswrite("   haha")
+    # else
+    #   puts "Unable to open file!"
+    # end
+
     # how to figure out which boxes the user checked
     if params[:ratings] != nil
       @ratings_to_show = params[:ratings].keys
     else
       @ratings_to_show = []
     end
-      # how to restrict the database query based on that result
-    @movies = Movie.with_ratings(@ratings_to_show) # my
+    # how to restrict the database query based on that result
+    @movies = Movie.order(@reorder).with_ratings(@ratings_to_show) # my
   end
 
   def new
