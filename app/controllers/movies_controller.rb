@@ -19,13 +19,6 @@ class MoviesController < ApplicationController
       @reorder = session[:reorder]
     end
 
-    aFile = File.new("/home/codio/workspace/input.txt", "w")
-    if aFile
-      aFile.syswrite(@reorder)
-      aFile.syswrite(@ratings_to_show)
-      aFile.syswrite("========")
-    end
-
     # how to figure out which boxes the user checked
     if params[:ratings] != nil
       @ratings_to_show = params[:ratings].keys
