@@ -14,6 +14,9 @@ class MoviesController < ApplicationController
       elsif params[:clicking][:release_date] == "1"
         @reorder = :release_date
       end
+      session[:reorder] = @reorder
+    else
+      @reorder = session[:reorder]
     end
 
     aFile = File.new("/home/codio/workspace/input.txt", "w")
@@ -26,10 +29,13 @@ class MoviesController < ApplicationController
     # how to figure out which boxes the user checked
     if params[:ratings] != nil
       @ratings_to_show = params[:ratings].keys
+      session[:ratings] = @ratings_to_show
+    elsif session[:ratings] != nil
+      @ratings_to_show = session[:ratings]
     else
       @ratings_to_show = []
     end
-    # how to restrict the database query based on that result
+
     @movies = Movie.order(@reorder).with_ratings(@ratings_to_show) # my
   end
 
