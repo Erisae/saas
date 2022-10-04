@@ -1,16 +1,4 @@
 class MoviesController < ApplicationController
-  attr_reader :all_ratings, :ratings_to_show, :reorder
-  attr_writer :all_ratings, :ratings_to_show, :reorder
-
-  def initialize
-    super
-    # controller sets this variable by consulting the Model
-    @all_ratings = Movie.all_ratings
-    # a collection of which ratings should be checked, array
-    @ratings_to_show = [] # my
-    @reorder = ""
-  end
-
   def show
     id = params[:id] # retrieve movie ID from URI route
     @movie = Movie.find(id) # look up movie by unique ID
@@ -18,8 +6,8 @@ class MoviesController < ApplicationController
   end
 
   def index
+    @all_ratings = Movie.all_ratings
     # order
-
     if params[:clicking] != nil
       if params[:clicking][:movie_title] == "1"
         @reorder = :title
@@ -28,13 +16,12 @@ class MoviesController < ApplicationController
       end
     end
 
-    # aFile = File.new("/home/codio/workspace/input.txt", "w")
-    # if aFile
-    #   aFile.syswrite(@reorder)
-    #   aFile.syswrite("   haha")
-    # else
-    #   puts "Unable to open file!"
-    # end
+    aFile = File.new("/home/codio/workspace/input.txt", "w")
+    if aFile
+      aFile.syswrite(@reorder)
+      aFile.syswrite(@ratings_to_show)
+      aFile.syswrite("========")
+    end
 
     # how to figure out which boxes the user checked
     if params[:ratings] != nil
