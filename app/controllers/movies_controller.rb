@@ -14,13 +14,13 @@ class MoviesController < ApplicationController
       elsif session[:reorder] == "release_date"
         clicking_v = {:movie_title=>"0", :release_date=>"1"}
       end
-      params[:clicking] = session[:reorder]
 
       if session[:ratings] != nil
         rating_v = Hash[session[:ratings].map {|v| [v,"1"]}]
       end
-      params[:ratings] = session[:ratings]
-      redirect_to movies_path({:clicking=>clicking_v, :ratings=>rating_v}) and return
+      redirect_to movies_path({:clicking=>clicking_v, :ratings=>rating_v})
+    elsif params[:clicking]==nil and params[:ratings]==nil # first
+      session[:ratings] = @all_ratings
     end
 
     # order
