@@ -19,7 +19,7 @@ class MoviesController < ApplicationController
         rating_v = Hash[session[:ratings].map {|v| [v,1]}]
       end
       
-      redirect_to movies_path({:clicking=>clicking_v, :ratings=>rating_v})
+      redirect_to movies_path({:clicking=>clicking_v, :ratings=>rating_v}) and return
     end
 
     # order
