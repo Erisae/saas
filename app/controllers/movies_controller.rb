@@ -39,9 +39,9 @@ class MoviesController < ApplicationController
     elsif params[:home] != 1
       @ratings_to_show = @all_ratings
     end
-    aFile = File.new("/home/codio/workspace/input.txt", "w")
-    aFile.syswrite(@reorder)
-    aFile.syswrite(@ratings_to_show)
+    # aFile = File.new("/home/codio/workspace/input.txt", "w")
+    # aFile.syswrite(@reorder)
+    # aFile.syswrite(@ratings_to_show)
     @movies = Movie.order(@reorder).with_ratings(@ratings_to_show) # my
   end
 
