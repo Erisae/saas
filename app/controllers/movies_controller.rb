@@ -37,7 +37,7 @@ class MoviesController < ApplicationController
       @ratings_to_show = params[:ratings].keys
       session[:ratings] = @ratings_to_show
     else
-      @ratings_to_show = []
+      @ratings_to_show = @all_ratings
     end
 
     @movies = Movie.order(@reorder).with_ratings(@ratings_to_show) # my
