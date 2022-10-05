@@ -16,7 +16,7 @@ class MoviesController < ApplicationController
       end
 
       if session[:ratings] != nil
-        rating_v = Hash[session[:ratings].map {|v| [v,1]}]
+        rating_v = Hash[session[:ratings].map {|v| [v,"1"]}]
       end
       
       redirect_to movies_path({:clicking=>clicking_v, :ratings=>rating_v}) and return
@@ -36,10 +36,12 @@ class MoviesController < ApplicationController
     if params[:ratings] != nil
       @ratings_to_show = params[:ratings].keys
       session[:ratings] = @ratings_to_show
-    else
+    elsif params[:home] != 1
       @ratings_to_show = @all_ratings
     end
-
+    aFile = File.new("/home/codio/workspace/input.txt", "w")
+    aFile.syswrite(@reorder)
+    aFile.syswrite(@ratings_to_show)
     @movies = Movie.order(@reorder).with_ratings(@ratings_to_show) # my
   end
 
