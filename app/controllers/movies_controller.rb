@@ -7,6 +7,21 @@ class MoviesController < ApplicationController
 
   def index
     @all_ratings = Movie.all_ratings
+    # if no params and not first
+    if params[:clicking]==nil and params[:ratings]==nil and params[:home]=="1"
+      if session[:reorder] == "title"
+        clicking_v = {:movie_title=>"1", :release_date=>"0"}
+      elsif session[:reorder] == "release_date"
+        clicking_v = {:movie_title=>"0", :release_date=>"1"}
+      end
+
+      if session[:ratings] != nil
+        rating_v = Hash[session[:ratings].map {|v| [v,1]}]
+      end
+      
+      redirect_to movies_path({:clicking=>clicking_v, :ratings=>rating_v})
+    end
+
     # order
     if params[:clicking] != nil
       if params[:clicking][:movie_title] == "1"
@@ -15,16 +30,12 @@ class MoviesController < ApplicationController
         @reorder = :release_date
       end
       session[:reorder] = @reorder
-    else
-      @reorder = session[:reorder]
     end
 
     # how to figure out which boxes the user checked
     if params[:ratings] != nil
       @ratings_to_show = params[:ratings].keys
       session[:ratings] = @ratings_to_show
-    elsif session[:ratings] != nil
-      @ratings_to_show = session[:ratings]
     else
       @ratings_to_show = []
     end
